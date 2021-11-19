@@ -53,6 +53,14 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={this.props.onSubtractCounter}
         />
+        <hr/>
+        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <ul>
+          {this.props.storedResults.map(strResult=> (
+             <li onClick={this.props.onDeleteResult}>{strResult}</li>
+          ))}
+          
+        </ul>
       </div>
     );
   }
@@ -61,6 +69,7 @@ class Counter extends Component {
 const mapStateToProps = (state) => {
   return {
     ctr: state.counter, //this state is a global state of redux reducer such as initialStat
+    storedResults: state.results
   };
 };
 
@@ -70,7 +79,10 @@ const mapDispatchToProps = (dispatch) => {
     onDecrementCounter: () => dispatch({ type: "DECREMENT" }),
     onAddCounter: () => dispatch({ type: "ADD", val: 5 }), // we use payload like value, name etc here no one stop us
     onSubtractCounter: () => dispatch({ type: "SUBTRACT", val: 5 }),
+    onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
+    onDeleteResult: () => dispatch({type: 'DELETE_RESULT'})
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+ 
